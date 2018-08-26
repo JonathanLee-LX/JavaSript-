@@ -1,9 +1,3 @@
-# Async函数
-Async函数是ES2017中新添加的一个新特性，主要是为了让更好的书写异步函数。
-## 为什么会有Async？我们先尝试解决下面这个问题。
-有三个资源`a.html`, `b.html`和`c.html`,我们需要按顺序读取这三个文件中的内容。
-## 使用Promise实现
-``` javascript
 const axios = require('axios') ;
 
 const fetchFile = (fileURL) => {
@@ -15,7 +9,6 @@ const fetchFile = (fileURL) => {
             })
 }
 
-// 使用Promise
 const fetchFileWithPromise = () => {
     fetchFile('http://localhost:3000/a.txt')
     .then(res => {
@@ -37,7 +30,6 @@ const fetchFileWithPromise = () => {
     })
 }
 
-// 使用Async函数
 const fetchFileWithAsync = async () => {
     try {
         const a = await fetchFile('http://localhost:3000/a.txt')
@@ -51,8 +43,8 @@ const fetchFileWithAsync = async () => {
     }
 }
 
-fetchFileWithPromise()
+// fetchFileWithPromise()
 
 fetchFileWithAsync()
 
-```
+
