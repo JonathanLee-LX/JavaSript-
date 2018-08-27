@@ -10,8 +10,9 @@ const fetchFile = () => {
 
 const fetchFiles = (urls) => {
     const responseList = urls.map(async url => {
-        return await fetch(url)
+        return await axios.get(url)
     })
+    console.log(responseList)
     responseList.forEach(res => {
         console.log(res.data)
     })
