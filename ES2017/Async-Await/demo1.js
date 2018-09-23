@@ -5,7 +5,7 @@ const fetchFile = (fileURL) => {
             .then(res => {
                 return res
             }).catch(err => {
-                console.error(err)
+                // console.error(err)
             })
 }
 
@@ -32,14 +32,14 @@ const fetchFileWithPromise = () => {
 
 const fetchFileWithAsync = async () => {
     try {
-        const a = await fetchFile('http://localhost:3000/a.txt')
+        const a = await fetchFile('http://localhost:3000/a1.txt')
         console.log(a.data)
         const b = await fetchFile('http://localhost:3000/b.txt')
         console.log(b.data)
         const c = await fetchFile('http://localhost:3000/c.txt')
         console.log(c.data)
     } catch (error) {
-        console.error(error)
+        console.log('error')
     }
 }
 
