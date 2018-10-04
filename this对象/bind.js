@@ -1,6 +1,6 @@
-if(!Function.prototype.bind){
+if (!Function.prototype.bind) {
     Function.prototype.bind = function (oThis) {
-        if(typeof oThis !== 'function'){
+        if (typeof this !== 'function') {
             throw new Error('This object is not a function.')
         }
         var fToBind = this,
@@ -13,7 +13,7 @@ if(!Function.prototype.bind){
                     Array.prototype.concat(aArgs, arguments)
                 )
             }
-            // 为了让返回的函数对象也能正确的使用new来实例化对象
+        // 为了让返回的函数对象也能正确的使用new来实例化对象
         fNOP.prototype = this.prototype
         fBound.prototype = new fNOP()
         return fBound
@@ -25,4 +25,3 @@ var a = 2,
         console.log(this.a)
     }
 b.a = 1
-
