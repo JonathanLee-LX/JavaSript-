@@ -13,11 +13,13 @@ function PromiseX (callback) {
     }
 }
 
-var caller = function ({ onFulfilled, onRejected }) {
-    if (this._status === 'resolved') {
-        if(!onFulfilled) {
-            return new PromiseX(this);
-        }
+
+/**
+ * invoker执行_queue中等待执行的函数
+ * @param {*} { onFulfilled, onRejected, onFinally }
+ */
+var invoker = function ({ onFulfilled, onRejected, onFinally }) {
+    if (this._status === 'resolved' && onFulfilled) {
         try {
             this._data = onFulfilled(this._data);
             this._status = 'resolved';
@@ -25,7 +27,7 @@ var caller = function ({ onFulfilled, onRejected }) {
             this._data = error;
             this._status = 'rejected';
         }
-    } else if(this._status === 'rejected') {
+    } else if(this._status === 'rejected' && onRejected) {
         try {
             this._data = onRejected(this._data);
             this._status = 'resolved';
@@ -34,18 +36,19 @@ var caller = function ({ onFulfilled, onRejected }) {
             this._status = 'rejected';
         }
     }
+    onFinally && onFinally();
 }
 
 PromiseX.prototype.resolve = function (res) {
     this._data = res;
     this._status = 'resolved';
-    this._queue.forEach(caller.bind(this));
+    this._queue.forEach(invoker.bind(this));
 }
 
 PromiseX.prototype.reject = function (error) {
     this._data = error;
     this._status = 'rejected';
-    this._queue.forEach(caller.bind(this));
+    this._queue.forEach(invoker.bind(this));
 }
 
 PromiseX.prototype.then = function(onFulfilled, onRejected) {
@@ -61,6 +64,11 @@ PromiseX.prototype.then = function(onFulfilled, onRejected) {
 
 PromiseX.prototype.catch = function(onRejected) {
     this._queue.push({onRejected});
+    return new PromiseX(this);
+}
+
+PromiseX.prototype.finally = function(onFinally) {
+    this._queue.push({onFinally});
     return new PromiseX(this);
 }
 
@@ -91,7 +99,7 @@ PromiseX.all = function(...fns) {
     return new PromiseX(function(resolve, reject) {
         var resList = [];
         fns.forEach((fn, i) => {
-            (new Promise(fn)).then(res => {
+            (new PromiseX(fn)).then(res => {
                 resList[i] = res;
                 sum++;
                 // 如果sum等于fns.length,说明所有函数都已经完成了

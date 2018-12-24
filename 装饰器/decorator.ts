@@ -13,10 +13,37 @@ function observered(obj: any, member: string) {
     return val;
 }
 
+function loadAble(key: string) {
+    return function (obj: any, member: string) {
+        let fn = obj[member];
+        return function(...args: any[]) {
+            obj[key] = true;
+            console.log(obj[key]);
+            try {
+                fn.apply(obj, args);
+            } catch (error) {
+                console.error(error);                
+            }
+            obj[key] = false;
+            console.log(obj[key]);
+        }
+    }
+}
+
 class State {
-    @observered name = 1;
+    // @observered 
+    name = 1;
+    
+    isLoading: boolean = false;
+    
+    @loadAble('isLoading')
+    fetchData() {
+        console.log('fetch data end..')
+    }
 }
     
-const state = new State();
+const data = new State();
 
-state.name = 2;
+data.name = 2;
+console.log(data.isLoading)
+data.fetchData();
