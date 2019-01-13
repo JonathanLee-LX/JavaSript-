@@ -1,4 +1,10 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 exports.__esModule = true;
 var Armor = /** @class */ (function () {
     function Armor() {
@@ -69,14 +75,23 @@ var Tony = /** @class */ (function () {
     Tony.prototype.sayName = function () {
         console.log(this.name);
     };
+    Tony = __decorate([
+        mixins([Armor, Javis])
+    ], Tony);
     return Tony;
 }());
 exports["default"] = Tony;
-function applyMixins(baseClass, mixinClasses) {
-    mixinClasses.forEach(function (mixin) {
-        Object.getOwnPropertyNames(mixin.prototype).forEach(function (name) {
-            baseClass.prototype[name] = mixin.prototype[name];
+function mixins(source) {
+    return function (target) {
+        source.forEach(function (mixin) {
+            Object.getOwnPropertyNames(mixin.prototype).forEach(function (name) {
+                target.prototype[name] = mixin.prototype[name];
+            });
         });
-    });
+    };
 }
-applyMixins(Tony, [Armor, Javis]);
+var tony = new Tony('Tony Stack');
+tony.fly();
+tony.analyzeEnemy();
+console.log(Tony.prototype);
+console.log(Tony.prototype === tony.__proto__);
