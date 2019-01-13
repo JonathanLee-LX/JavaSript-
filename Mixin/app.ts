@@ -1,21 +1,20 @@
 import Modal from './modal'
 import ToggleDialog from './toggle-dialog'
 
-const source = new ToggleDialog();
-
-console.log(source)
+const toggle = new ToggleDialog()
 
 const opt = (() => {
-    return {
-        width: 100,
-        height: 200,
-        mixins: source
-    }
-})();
+  return {
+    width: 100,
+    height: 200,
+    mixins: toggle,
+  }
+})()
 
-const modal: any = new Modal(opt);
+const modal: any = new Modal(opt)
 
 modal.toggleDialog()
 console.log(modal.showDialog)
+
 modal.toggleDialog()
 console.log(modal.showDialog)

@@ -1,6 +1,10 @@
 {
   "dependencies": {
-    "antd-init": "^2.0.7"
+    "@types/jest": "^23.3.12",
+    "@types/lodash": "^4.14.119",
+    "antd-init": "^2.0.7",
+    "lodash": "^4.17.11",
+    "prettier": "1.15.3"
   },
   "devDependencies": {
     "jest": "^23.6.0"
