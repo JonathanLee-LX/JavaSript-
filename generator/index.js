@@ -17,7 +17,7 @@ function myCo(gen) {
     return value.then(res => {
       return next(g, res)
     }).catch(err => {
-      throw new Error(err)
+      throw err
     })
   }
   return next(g)
