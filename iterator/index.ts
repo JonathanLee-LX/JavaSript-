@@ -4,13 +4,13 @@ class LinkList<T> {
    * @type {ONode<T>}
    * @memberof LinkList
    */
-  public head: ONode<T>;
+  public head: ONode<T> | null
 
-  private len: number;
+  private len: number
 
   /**
    * @description 在链表头部添加一项
-   * @author lixiang <lixiang@aecworks.cn>
+   * @author lixiang <1150974628@qq.com>
    * @date 2018-11-11
    * @param {ONode<T>} node
    * @returns
@@ -18,94 +18,95 @@ class LinkList<T> {
    */
   addAtHead(node: ONode<T>) {
     if (this.head === null) {
-      this.head = node;
-      this.len++;
-      return;
+      this.head = node
+      this.len++
+      return
     }
-    node.next = this.head;
-    this.head = node;
-    this.len++;
+    node.next = this.head
+    this.head = node
+    this.len++
   }
 
   /**
    * @description 在链表尾端添加
-   * @author lixiang <lixiang@aecworks.cn>
+   * @author lixiang <1150974628@qq.com>
    * @date 2018-11-11
    * @param {ONode<T>} node
    * @memberof LinkList
    */
   addAtTail(node: ONode<T>) {
-    let head = this.head;
+    let head = this.head
     if (head === null) {
-      this.head = node;
-      this.len++;
-      return;
+      this.head = node
+      this.len++
+      return
     }
     while (head.next !== null) {
-      head = head.next;
+      head = head.next
     }
-    head.next = node;
-    this.len++;
+    head.next = node
+    this.len++
   }
 
-  public getByIndex(i: number): ONode<T> {
+  public getByIndex(i: number): ONode<T> | null {
     let head = this.head,
-      curIndex = 0;
+      curIndex = 0
     while (head !== null) {
       if (i === curIndex) {
-        return head;
+        return head
       }
-      head = head.next;
-      curIndex++;
+      head = head.next
+      curIndex++
     }
-    return null;
+    return null
   }
 
-  public getIndex(node: ONode<T>): number {
-    let currIndex = 0;
-    let head = this.head;
-    while (head !== node) {
-      head = head.next;
-      currIndex++;
+  public getIndex(node: ONode<T> | null): number {
+    let currIndex = 0
+    let head = this.head
+    while (head && head !== node) {
+      head = head.next
+      currIndex++
     }
-    return currIndex;
+    return currIndex
   }
 
   public insertAt(node: ONode<T>, i: number) {
-    const currNode = this.getByIndex(i);
-    if(currNode === null) throw new Error('This index item is null, cannot insert at this index');
-    node.next = currNode.next;
-    currNode.next = node;
-    this.len++;
+    const currNode = this.getByIndex(i)
+    if (currNode === null)
+      throw new Error('This index item is null, cannot insert at this index')
+    node.next = currNode.next
+    currNode.next = node
+    this.len++
   }
 
   public size() {
-    return this.len;
+    return this.len
   }
 
   constructor() {
-    this.head = null;
-    this.len = 0;
+    this.head = null
+    this.len = 0
   }
 }
 
 class ONode<T> {
-  public next: ONode<T>;
-  public val: T;
+  public next: ONode<T> | null
+  public val: T
   constructor(val: T) {
-    this.val = val;
-    this.next = null;
+    this.val = val
+    this.next = null
   }
 }
 
-const ll = new LinkList<number>();
+const ll = new LinkList<number>()
 for (let index = 0; index < 1000; index++) {
-  ll.addAtHead(new ONode(index));
+  ll.addAtHead(new ONode(index))
 }
 
-const item100 = ll.getByIndex(100);
-console.log(item100);
-console.log(ll.getIndex(item100));
+const item100 = ll.getByIndex(100)
+console.log(item100)
+console.log(ll.getIndex(item100))
 ll.insertAt(new ONode(888), 100)
-console.log(item100);
-console.log(ll.getIndex(item100));
+console.log(item100)
+console.log(ll.getIndex(item100))

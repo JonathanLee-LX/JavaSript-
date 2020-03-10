@@ -1,3 +1,4 @@
+"use strict";
 var TARGET = null;
 var Stock = /** @class */ (function () {
     function Stock(price) {
@@ -28,6 +29,8 @@ var Stock = /** @class */ (function () {
         return this.price;
     };
     Stock.prototype.setPrice = function (price) {
+        if (this.price === price)
+            return;
         this.price = price;
         this.notify();
     };

@@ -24,6 +24,19 @@ describe('test myCo', () => {
       done()
     })
   })
+
+  it('can right execute async task', (done) => {
+    expect.assertions(1)
+    const asyncFn = function* () {
+      const value = yield Promise.resolve(2)
+      return value
+    }
+    co(asyncFn).then(res => {
+      expect(res).toBe(2)
+      done()
+    })
+  })
+
   it('can right handle error', async () => {
     expect.assertions(1)
     try {

@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var Modal = /** @class */ (function () {
     function Modal(opt) {
         this.width = 100;
@@ -24,4 +24,4 @@ var Modal = /** @class */ (function () {
     };
     return Modal;
 }());
-exports["default"] = Modal;
+exports.default = Modal;

@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var ToggleDialog = /** @class */ (function () {
     function ToggleDialog() {
         this.showDialog = false;
@@ -9,4 +9,4 @@ var ToggleDialog = /** @class */ (function () {
     };
     return ToggleDialog;
 }());
-exports["default"] = ToggleDialog;
+exports.default = ToggleDialog;

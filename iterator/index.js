@@ -1,3 +1,4 @@
+"use strict";
 var LinkList = /** @class */ (function () {
     function LinkList() {
         this.head = null;
@@ -5,7 +6,7 @@ var LinkList = /** @class */ (function () {
     }
     /**
      * @description 在链表头部添加一项
-     * @author lixiang <lixiang@aecworks.cn>
+     * @author lixiang <1150974628@qq.com>
      * @date 2018-11-11
      * @param {ONode<T>} node
      * @returns
@@ -23,7 +24,7 @@ var LinkList = /** @class */ (function () {
     };
     /**
      * @description 在链表尾端添加
-     * @author lixiang <lixiang@aecworks.cn>
+     * @author lixiang <1150974628@qq.com>
      * @date 2018-11-11
      * @param {ONode<T>} node
      * @memberof LinkList
@@ -55,7 +56,7 @@ var LinkList = /** @class */ (function () {
     LinkList.prototype.getIndex = function (node) {
         var currIndex = 0;
         var head = this.head;
-        while (head !== node) {
+        while (head && head !== node) {
             head = head.next;
             currIndex++;
         }

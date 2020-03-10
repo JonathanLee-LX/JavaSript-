@@ -1,3 +1,4 @@
+"use strict";
 var Dialog = /** @class */ (function () {
     function Dialog() {
         this.showDialog = false;

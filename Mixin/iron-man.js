@@ -5,7 +5,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-exports.__esModule = true;
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 var Armor = /** @class */ (function () {
     function Armor() {
         this.energy = 100;
@@ -76,11 +79,12 @@ var Tony = /** @class */ (function () {
         console.log(this.name);
     };
     Tony = __decorate([
-        mixins([Armor, Javis])
+        mixins([Armor, Javis]),
+        __metadata("design:paramtypes", [String])
     ], Tony);
     return Tony;
 }());
-exports["default"] = Tony;
+exports.default = Tony;
 function mixins(source) {
     return function (target) {
         source.forEach(function (mixin) {
@@ -93,5 +97,3 @@ function mixins(source) {
 var tony = new Tony('Tony Stack');
 tony.fly();
 tony.analyzeEnemy();
-console.log(Tony.prototype);
-console.log(Tony.prototype === tony.__proto__);
