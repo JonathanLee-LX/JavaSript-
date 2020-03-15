@@ -4,23 +4,26 @@
  * @param {*} gen 生成器函数
  * @returns
  */
-function myCo(gen) {
+export default function co(gen) {
   var g = gen()
 
   function next(g, prev) {
-    var {
-      value,
-      done
-    } = g.next(prev)
-    // assume value is a Promise
-    if (done) return Promise.resolve(value)
-    return value.then(res => {
-      return next(g, res)
-    }).catch(err => {
-      throw err
-    })
+    var { value, done } = g.next(prev)
+
+    if (value instanceof Promise)
+      return value
+        .then(res => {
+          if (!done) return next(g, res)
+          return res
+        })
+        .catch(err => {
+          throw err
+        })
+
+    if (!done) return next(g, value)
+
+    return Promise.resolve(value)
   }
+
   return next(g)
 }
-
-module.exports = myCo
